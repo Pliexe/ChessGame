@@ -3,6 +3,7 @@
  * this file. If not, please write to: pliexe, or visit : https://github.com/Pliexe/VisualDiscordBotCreator/blob/master/LICENSE
  */
 #include "NormalGame.h"
+#pragma comment (lib, "winmm.lib") // For some reason adding it to linker won't work
 
 bool NormalGame::Init()
 {
@@ -179,6 +180,7 @@ void NormalGame::OnClick(int x, int y)
 				}
 				*(tableContents + selection) = 0;
 				lastMove = newLocation;
+				PlaySound((rand() % 100) > 50 ? L"sfx\\move_1.wav" : L"sfx\\move_2.wav", NULL, SND_FILENAME);
 			}
 			else if (IsValidAttack(selection, newLocation)) {
 				int piece = *(tableContents + selection);
@@ -199,6 +201,7 @@ void NormalGame::OnClick(int x, int y)
 				}
 				*(tableContents + selection) = 0;
 				lastMove = newLocation;
+				PlaySound((rand() % 100) > 50 ? L"sfx\\attack_1.wav" : L"sfx\\attack_2.wav", NULL, SND_FILENAME);
 			}
 			selection = -1;
 		}
@@ -289,6 +292,17 @@ bool NormalGame::IsValidAttack(int field, int to)
 		/*if ((to == field + 8 || to == field + 9 || to == field + 7 || to == field - 8 || to == field - 9 || to == field - 7 || to == field - 1 || to == field + 1)) return true;
 		else return false;*/
 		return false;
+	}
+	case ChessPiece::Knight:
+	{
+		int row = trunc(field / 8);
+		if (toValue != ChessPiece::None && (value < 0 ? (toValue < 0) : (toValue > 0)) &&
+  			((field - 15 == to) && (trunc((field - 15) / 8) == row - 2)) || ((field - 17 == to) && (trunc((field - 17) / 8) == row - 2)) ||
+			((field - 10 == to) && (trunc((field - 10) / 8) == row - 1)) || ((field - 6 == to) && (trunc((field - 6) / 8) == row - 1)) ||
+			((field + 10 == to) && (trunc((field + 10) / 8) == row + 1)) || ((field + 6 == to) && (trunc((field + 6) / 8) == row + 1)) ||
+			((field + 15 == to) && (trunc((field + 15) / 8) == row + 2)) || ((field + 17 == to) && (trunc((field + 17) / 8) == row + 2))
+			) return true;
+		else return false;
 	}
 	case ChessPiece::Pawn:
 		if (abs(field - lastMove) == 1 && (field > 0 ? (lastMove == to + 8) : (lastMove == to - 8)) && abs(*(tableContents + lastMove)) == ChessPiece::NewPawn) return true;

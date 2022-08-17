@@ -29,17 +29,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE legacyPrevInstance, LPWSTR cm
 	}
 #endif
 
-	/*FILE* o;
-	FILE* e;
+	
 
-	freopen_s(&o, "logs.txt", "w", stdout);
-	freopen_s(&e, "error.txt", "w", stdout);*/
-
-	/*if (!consoleEnabled) {
+	if (!consoleEnabled) {
 		
+		FILE* o;
+		FILE* e;
 
+		freopen_s(&o, "logs.txt", "w", stdout);
+		freopen_s(&e, "error.txt", "w", stderr);
 		
-	}*/
+	}
 
 	std::cout << "Starting Application" << std::endl;
 

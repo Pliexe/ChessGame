@@ -105,10 +105,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>User32.lib;d2d1.lib;Dwrite.lib;windowscodecs.lib;Ole32.lib</AdditionalDependencies>
+      <AdditionalDependencies>User32.lib;d2d1.lib;Dwrite.lib;windowscodecs.lib;Ole32.lib;winmm.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /F /R /Y /I /E "$(ProjectDir)data\" "$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\data\"</Command>
+      <Command>xcopy /F /R /Y /I /E "$(ProjectDir)data\" "$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\data\"
+xcopy /F /R /Y /I /E "$(ProjectDir)sfx\" "$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\sfx\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
